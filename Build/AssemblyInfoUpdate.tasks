@@ -1,0 +1,41 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  
+  <UsingTask TaskName="AssemblyInfoUpdate" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <AssemblyInfoFiles ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+      <AssemblyAttribute ParameterType="System.String" Required="true" />
+      <Parameters ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System" />
+      <Using Namespace="System.IO" />
+      <Using Namespace="System.Text.RegularExpressions" />
+      <Using Namespace="Microsoft.Build.Framework" />
+      <Using Namespace="Microsoft.Build.Utilities" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+            foreach (ITaskItem assemblyInfoFile in AssemblyInfoFiles)
+            {
+                string file = assemblyInfoFile.ItemSpec;
+                string text = File.ReadAllText(file);
+                if (text.Contains("[assembly: " + AssemblyAttribute))
+                {
+                    text = Regex.Replace(
+                        text,
+                        "\\[assembly: " + AssemblyAttribute + "\\(\".*\"\\)\\]",
+                        "[assembly: " + AssemblyAttribute +  "(" + Parameters + ")]");
+                }
+                else
+                {
+                    text += Environment.NewLine;
+                    text += "[assembly: " + AssemblyAttribute + "(" + Parameters + ")]";
+                }
+
+                File.WriteAllText(file, text);
+            }
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+  
+</Project>

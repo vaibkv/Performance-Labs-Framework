@@ -1,0 +1,2 @@
+BugzId : 42410
+Adding comment for template build file.

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>PerformanceLabsFramework</id>
+    <version>$version$</version>
+    <title>Performance Labs Framework</title>
+    <authors>Kumar Vaibhav, Brock Bouchard</authors>
+    <owners>Kumar Vaibhav, Brock Bouchard</owners>
+    <projectUrl>https://fogbugz.devid.local/default.asp?W1517</projectUrl>
+    <copyright>Copyright 2012 The Advisory Board Company</copyright>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>Performance Profiling, code monitoring and reporting framework</summary>
+    <description>
+      Performance Profiling, code monitoring and reporting framework
+    </description>
+   </metadata>
+	<files>
+	   <file src="bin\Release\PerformanceLabsFramework.dll" target="lib\net40" />
+	   <file src="bin\Release\EntityFramework.dll" target="lib\net40" />
+	   <file src="bin\Release\MiniProfiler.dll" target="lib\net40" />
+	   <file src="bin\Release\PerformanceLabsFramework.dll.config" target="lib\net40" />
+	   <file src="bin\Release\MiniProfiler.xml" target="lib\net40" />
+	   <file src="..\Build\PerformanceTestSuiteBuild.proj" target="content" />
+	</files>
+</package>

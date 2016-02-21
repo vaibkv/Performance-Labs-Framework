@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1900CEA2-79C5-42E6-BC47-F95100458267}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PerformanceLabsFramework</RootNamespace>
+    <AssemblyName>PerformanceLabsFramework</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)Build\SharedProjectSettings\SharedProperties.proj" />
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="MiniProfiler">
+      <HintPath>..\packages\MiniProfiler.2.0.2\lib\net40\MiniProfiler.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\CollectionToDataTable.cs" />
+    <Compile Include="Helpers\HttpSimulator.cs" />
+    <Compile Include="Helpers\PerformanceLabsMathUtility.cs" />
+    <Compile Include="Helpers\ReflectionHelper.cs" />
+    <Compile Include="Helpers\SimulatedHttpRequest.cs" />
+    <Compile Include="Migrations\201210040440065_InitialCreate.cs" />
+    <Compile Include="Migrations\201210040440065_InitialCreate.Designer.cs">
+      <DependentUpon>201210040440065_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="MiniProfilerStepPerfLabs.cs" />
+    <Compile Include="Models\Configurations\MiniProfilerClientTimingConfiguration.cs" />
+    <Compile Include="Models\Configurations\MiniProfilerConfiguration.cs" />
+    <Compile Include="Models\Configurations\MiniProfilerOperationThresholdConfiguration.cs" />
+    <Compile Include="Models\Configurations\MiniProfilerSqlTimingConfiguration.cs" />
+    <Compile Include="Models\Configurations\MiniProfilerSqlTimingParameterConfiguration.cs" />
+    <Compile Include="Models\Configurations\MiniProfilerTimingConfiguration.cs" />
+    <Compile Include="Models\Configurations\RegressionArchiveConfiguration.cs" />
+    <Compile Include="Models\Configurations\StopWatchProfilerConfiguration.cs" />
+    <Compile Include="Models\Configurations\StopWatchProfilerTimingConfiguration.cs" />
+    <Compile Include="Models\IPerformanceDBProxy.cs" />
+    <Compile Include="Models\MiniProfiler.cs" />
+    <Compile Include="Models\MiniProfilerClientTiming.cs" />
+    <Compile Include="Models\MiniProfilerOperationThreshold.cs" />
+    <Compile Include="Models\MiniProfilerSqlTiming.cs" />
+    <Compile Include="Models\MiniProfilerSqlTimingParameter.cs" />
+    <Compile Include="Models\MiniProfilerTiming.cs" />
+    <Compile Include="Models\PerformanceLabsDBContext.cs" />
+    <Compile Include="Models\RegressionArchive.cs" />
+    <Compile Include="Models\StopWatchProfiler.cs" />
+    <Compile Include="Models\StopWatchProfilerTiming.cs" />
+    <Compile Include="Models\Test_PerformanceLabsDBContext.cs" />
+    <Compile Include="Models\ValueObjects\CodeRegression.cs" />
+    <Compile Include="Models\ValueObjects\DbRegression.cs" />
+    <Compile Include="Models\ValueObjects\LatestMiniProfiler.cs" />
+    <Compile Include="Models\ValueObjects\MiniProfilerSqlTimingParameterValueObject.cs" />
+    <Compile Include="Models\ValueObjects\MiniProfilerSqlTimingValueObject.cs" />
+    <Compile Include="Models\ValueObjects\NamedSlowCode.cs" />
+    <Compile Include="Models\ValueObjects\RegressionResult1.cs" />
+    <Compile Include="Models\ValueObjects\RegressionResult2.cs" />
+    <Compile Include="Models\ValueObjects\RegressionResult3.cs" />
+    <Compile Include="MVCMiniProfiler.cs" />
+    <Compile Include="PerfLabsProfiledADOWrapper.cs" />
+    <Compile Include="PerfLabsStopWatch.cs" />
+    <Compile Include="PerformanceLabsConfigurations.cs" />
+    <Compile Include="PerformanceLabsExceptionsAndLogging\ExceptionsAndLoggingMessages.cs" />
+    <Compile Include="PerformanceLabsExceptionsAndLogging\OperationNameException.cs" />
+    <Compile Include="PerformanceLabsLibrary.cs" />
+    <Compile Include="PerformanceResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="UXConstants.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="PerformanceLabsFramework.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Helpers\ReadMe.txt" />
+    <Content Include="Migrations\ReadMe.txt" />
+    <Content Include="Resources\css\bootstrap-responsive.css" />
+    <Content Include="Resources\css\bootstrap.css" />
+    <Content Include="Resources\js\bootstrap-modal.js" />
+    <Content Include="Resources\js\jquery.js" />
+    <EmbeddedResource Include="Resources\Binaries\MiniProfiler.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Images\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

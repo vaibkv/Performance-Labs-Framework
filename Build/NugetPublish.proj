@@ -1,0 +1,68 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="RunAllTargets">
+
+  <Import Project="$(MSBuildProjectDirectory)\AssemblyInfoUpdate.tasks" />
+
+  <!-- These are the properties that the build server will set.
+    The values declared below are defaults for testing locally, and will be overriden by the build server.
+    Property values passed to MSBuild via the command line always take precedence. -->
+  <PropertyGroup>
+    <AssemblyVersion>1.2.3.4</AssemblyVersion>
+    <NugetVersion>1.2.3-test</NugetVersion>
+    <SourceControlId>SomeChangeset</SourceControlId>
+    <BuildArtifactsPath>$(MSBuildProjectDirectory)\Output\BuildArtifacts</BuildArtifactsPath>
+    <NugetOutputDirectory>$(MSBuildProjectDirectory)\Output\NugetPackages</NugetOutputDirectory>
+    <WorkingDirectory>$(MSBuildProjectDirectory)\..</WorkingDirectory>
+    <ArtifactDirectory>$(MSBuildProjectDirectory)\Output</ArtifactDirectory>
+  </PropertyGroup>
+
+  <Target Name="PrintPropertiesFromBuildServer">
+    <Message Text="$(AssemblyVersion)" />
+    <Message Text="$(NugetVersion)" />
+    <Message Text="$(SourceControlId)" />
+    <Message Text="$(BuildArtifactsPath)" />
+    <Message Text="$(NugetOutputDirectory)" />
+    <Message Text="$(WorkingDirectory)" />
+    <Message Text="$(ArtifactDirectory)" />
+  </Target>
+
+  <Target Name="BuildSolutionInDebug" DependsOnTargets="PrintPropertiesFromBuildServer">
+    <MSBuild Projects="$(WorkingDirectory)\PerformanceLabsFramework.sln" Targets="Clean;Rebuild" Properties="Configuration=Debug" />
+  </Target>
+
+  <Target Name="UpdateAssemblyInfo" DependsOnTargets="BuildSolutionInDebug">
+    <PropertyGroup>
+      <AssemblyDescription>PerformanceLabsFramework $(NugetVersion) $(AssemblyVersion) $(SourceControlId)</AssemblyDescription>
+    </PropertyGroup>
+    <ItemGroup>
+      <AssemblyInfoFiles Include="$(WorkingDirectory)\**\AssemblyInfo.cs" Exclude="$(WorkingDirectory)\packages*" />
+    </ItemGroup>
+    <AssemblyInfoUpdate AssemblyAttribute="AssemblyProduct" Parameters='"PerformanceLabsFramework"' AssemblyInfoFiles="%(AssemblyInfoFiles.FullPath)" />
+    <AssemblyInfoUpdate AssemblyAttribute="AssemblyCopyright" Parameters='"Copyright © The Advisory Board Company 2012"' AssemblyInfoFiles="%(AssemblyInfoFiles.FullPath)" />
+    <AssemblyInfoUpdate AssemblyAttribute="AssemblyConfiguration" Parameters='"Release"' AssemblyInfoFiles="%(AssemblyInfoFiles.FullPath)" />
+    <AssemblyInfoUpdate AssemblyAttribute="AssemblyCompany" Parameters='"The Advisory Board Company"' AssemblyInfoFiles="%(AssemblyInfoFiles.FullPath)" />
+    <AssemblyInfoUpdate AssemblyAttribute="AssemblyVersion" Parameters='"$(AssemblyVersion)"' AssemblyInfoFiles="%(AssemblyInfoFiles.FullPath)" />
+    <AssemblyInfoUpdate AssemblyAttribute="AssemblyFileVersion" Parameters='"$(AssemblyVersion)"' AssemblyInfoFiles="%(AssemblyInfoFiles.FullPath)" />
+    <AssemblyInfoUpdate AssemblyAttribute="AssemblyDescription" Parameters='"$(AssemblyDescription)"' AssemblyInfoFiles="%(AssemblyInfoFiles.FullPath)" />
+    <AssemblyInfoUpdate AssemblyAttribute="AssemblyInformationalVersion" Parameters='"$(AssemblyDescription)"' AssemblyInfoFiles="%(AssemblyInfoFiles.FullPath)" />
+  </Target>
+
+  <Target Name="BuildSolutionInRelease" DependsOnTargets="UpdateAssemblyInfo">
+    <MSBuild Projects="$(WorkingDirectory)\PerformanceLabsFramework.sln" Targets="Clean;Rebuild" Properties="Configuration=Release" />
+  </Target>
+
+  <Target Name="CreateNugetPackages" DependsOnTargets="BuildSolutionInRelease">
+    <PropertyGroup>
+      <PerformanceLabsFrameworkPackage>PerformanceLabsFramework.$(NugetVersion).nupkg</PerformanceLabsFrameworkPackage>
+    </PropertyGroup>
+    <MakeDir Directories="$(NugetOutputDirectory)" Condition="!Exists('$(NugetOutputDirectory)')" />
+    <!--
+      The nuspec files are targeted directly instead of the .csproj files, otherwise we are not able to run CrimsonDataGenerator.exe from batch file or CMD
+      the dependent dlls are added in some other location in the target project and hence CrimsonDataGenerator.exe is not able to resolve the dependency
+    -->
+    <Exec Command=".nuget\Nuget.exe pack PerformanceLabsFramework\PerformanceLabsFramework.nuspec -Version $(NugetVersion) -BasePath %22$(WorkingDirectory)\PerformanceLabsFramework%22 -Properties Configuration=Release -OutputDirectory %22$(NugetOutputDirectory)%22" WorkingDirectory="$(WorkingDirectory)" />
+    <Error Text="Failed to publish $(PerformanceLabsFramework)" Condition="!Exists('$(NugetOutputDirectory)\$(PerformanceLabsFramework)')" />
+  </Target>
+
+  <Target Name="RunAllTargets" DependsOnTargets="CreateNugetPackages" />
+
+</Project>

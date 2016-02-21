@@ -1,0 +1,39 @@
+# Ignore file for PerformanceLabsFramework.  You can override the ignore with an add command.
+
+# use glob syntax
+syntax: glob
+
+# Ignore Visual Studio generated files
+# If you need to add exe files, etc for a package do it via a hg add command to override the ignore
+*.obj
+*.exe
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.scc
+*.nupkg
+[Bb]in
+[Dd]ebug*/
+obj/
+[Rr]elease*/
+_ReSharper*/
+[Tt]est[Rr]esult*
+[Bb]uild[Ll]og.*
+*.[Pp]ublish.xml
+
+*.VisualState.xml
+*StyleCop.Cache

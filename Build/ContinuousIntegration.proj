@@ -1,0 +1,18 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="RunAllTargets">
+<!-- These are the properties that the build server will set.
+    The values declared below are defaults for testing locally, and will be overriden by the build server.
+    Property values passed to MSBuild via the command line always take precedence. -->
+  <PropertyGroup>
+    <WorkingDirectory>$(MSBuildProjectDirectory)\..</WorkingDirectory>
+    <ArtifactDirectory>$(MSBuildProjectDirectory)\Output</ArtifactDirectory>
+  </PropertyGroup>
+
+  <Target Name="Compile">
+    <MSBuild Projects="$(WorkingDirectory)\PerformanceLabsFramework.sln" Targets="ReBuild" Properties="Configuration=Debug" />
+  </Target>
+  <Target Name="RunAllTargets" DependsOnTargets="Compile">
+    <exec 
+     command="&quot;$(WorkingDirectory)\PerformanceLabsFramework\Resources\NUnit-2.6.1\bin\nunit-console.exe&quot; /framework=4.0  /xml:&quot;$(WorkingDirectory)\Build\nunit-test.xml&quot; /noshadow    &quot;$(WorkingDirectory)\PerformanceLabs.AllTests\bin\Debug\PerformanceLabs.AllTests.dll&quot;" ContinueOnError="false">
+  </exec>
+  </Target>
+</Project>

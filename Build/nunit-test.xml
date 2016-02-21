@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="D:\CCCRepository\PerformanceLabsFramework\PerformanceLabs.AllTests\bin\Debug\PerformanceLabs.AllTests.dll" total="15" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2013-01-08" time="20:29:55">
+  <environment nunit-version="2.6.1.12217" clr-version="2.0.50727.4963" os-version="Microsoft Windows NT 6.1.7600.0" platform="Win32NT" cwd="D:\CCCRepository\PerformanceLabsFramework\Build" machine-name="VAIBHAVK" user="vaibhavk" user-domain="ABCOCHN" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Assembly" name="D:\CCCRepository\PerformanceLabsFramework\PerformanceLabs.AllTests\bin\Debug\PerformanceLabs.AllTests.dll" executed="True" result="Success" success="True" time="65.479" asserts="0">
+    <results>
+      <test-suite type="Namespace" name="PerformanceLabs" executed="True" result="Success" success="True" time="65.454" asserts="0">
+        <results>
+          <test-suite type="SetUpFixture" name="AllTests" executed="True" result="Success" success="True" time="65.453" asserts="0">
+            <results>
+              <test-suite type="TestFixture" name="OperationNameExceptionTests" executed="True" result="Success" success="True" time="0.598" asserts="0">
+                <results>
+                  <test-case name="PerformanceLabs.AllTests.OperationNameExceptionTests.OperationNameException_MiniProfilerOptionSameOpNameTwice_ShouldThrowExceptionInClientCode" executed="True" result="Success" success="True" time="0.329" asserts="1" />
+                  <test-case name="PerformanceLabs.AllTests.OperationNameExceptionTests.OperationNameException_MixedOptionsSameOpNameTwice_ShouldThrowExceptionInClientCode" executed="True" result="Success" success="True" time="0.212" asserts="1" />
+                  <test-case name="PerformanceLabs.AllTests.OperationNameExceptionTests.OperationNameException_StopWatchOptionSameOpNameTwice_ShouldThrowExceptionInClientCode" executed="True" result="Success" success="True" time="0.030" asserts="1" />
+                </results>
+              </test-suite>
+              <test-suite type="TestFixture" name="PerformanceResultTests" executed="True" result="Inconclusive" success="False" time="0.002" asserts="0" />
+              <test-suite type="TestFixture" name="SampleADONetCodeTests" executed="True" result="Success" success="True" time="42.015" asserts="0">
+                <results>
+                  <test-case name="PerformanceLabs.AllTests.SampleADONetCodeTests.SqlConnectionTestOperation_OperationLevelThresholdsGiven_ShouldSaveThresholdDataInStopWatchTimingColumn" executed="True" result="Success" success="True" time="1.453" asserts="1" />
+                  <test-case name="PerformanceLabs.AllTests.SampleADONetCodeTests.SqlConnectionTestOperation_OperationLevelThresholdsGiven_ShouldSaveThresholdDataInTableMiniProfilerOperationThresholds" executed="True" result="Success" success="True" time="1.060" asserts="1" />
+                  <test-case name="PerformanceLabs.AllTests.SampleADONetCodeTests.SqlConnectionTestOperation_SmallTimeAndBigTimeForRegression_DbRegressionShouldBeCapturedByMiniProfiler" executed="True" result="Success" success="True" time="38.415" asserts="1" />
+                  <test-case name="PerformanceLabs.AllTests.SampleADONetCodeTests.SqlConnectionTestOperation_SmallTimeTrue_SqlShouldBeCapturedByProfiler" executed="True" result="Success" success="True" time="1.082" asserts="1" />
+                </results>
+              </test-suite>
+              <test-suite type="TestFixture" name="SampleCSharpCodeTests" executed="True" result="Success" success="True" time="2.898" asserts="0">
+                <results>
+                  <test-case name="PerformanceLabs.AllTests.SampleCSharpCodeTests.CSharpTestOperation1_OperationLevelThresholdsGiven_ShouldSaveThresholdDataInStopWatchTimingColumn" executed="True" result="Success" success="True" time="0.036" asserts="1" />
+                  <test-case name="PerformanceLabs.AllTests.SampleCSharpCodeTests.CSharpTestOperation1_OperationLevelThresholdsGiven_ShouldSaveThresholdDataInTableMiniProfilerOperationThresholds" executed="True" result="Success" success="True" time="0.037" asserts="1" />
+                  <test-case name="PerformanceLabs.AllTests.SampleCSharpCodeTests.CSharpTestOperation1_SmallTimeAndBigTimeForRegression_ShouldBeCapturedByMiniProfiler" executed="True" result="Success" success="True" time="1.355" asserts="1" />
+                  <test-case name="PerformanceLabs.AllTests.SampleCSharpCodeTests.CSharpTestOperation1_SmallTimeAndBigTimeForRegression_ShouldBeCapturedByStopWatchProfiler" executed="True" result="Success" success="True" time="1.324" asserts="1" />
+                  <test-case name="PerformanceLabs.AllTests.SampleCSharpCodeTests.CSharpTestOperation1_SmallTimeMultipleRunPassingFunction_ShouldBeCapturedByStopWatchProfiler" executed="True" result="Success" success="True" time="0.044" asserts="1" />
+                  <test-case name="PerformanceLabs.AllTests.SampleCSharpCodeTests.CSharpTestOperation1_SmallTimeTrue_ShouldBeCapturedByProfiler" executed="True" result="Success" success="True" time="0.031" asserts="1" />
+                  <test-case name="PerformanceLabs.AllTests.SampleCSharpCodeTests.CSharpTestOperation1_SmallTimeTrue_ShouldBeCapturedByStopWatchProfiler" executed="True" result="Success" success="True" time="0.031" asserts="1" />
+                  <test-case name="PerformanceLabs.AllTests.SampleCSharpCodeTests.CSharpTestOperation1_SmallTimeTrueWithMultipleRuns_ShouldBeCapturedByStopWatchProfiler" executed="True" result="Success" success="True" time="0.033" asserts="1" />
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

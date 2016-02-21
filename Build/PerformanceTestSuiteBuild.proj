@@ -1,0 +1,58 @@
+<Project DefaultTargets="RenameReportAndCopyForMailling" xmlns="http://schemas.microsoft.com/developer/MsBuild/2003">
+	<!-- This build file is just a generic template that can be referred to while making your own build file or if possible the product can simply try to use this too. -->
+  
+  <Import Project="C:\Program Files\MSBuild\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+	
+  <!-- Importing product specific settings from a .proj file in the product code base --> 
+  <Import Project="$(MSBuildProjectDirectory)\..\..\..\Build\PerformanceLabsContinuousIntegrationSettings.proj" />
+  
+  <ItemGroup>
+        <ReportSourceFiles Include="$(ReportDir)\*.*"/>
+		<TestAssembly Include="$(BinPathPerformanceTest)\*.Tests.dll" />
+  </ItemGroup>
+  
+  
+  <!-- Renaming Report and copying it in workspace for mailing as attachment -->
+  <!-- Part 1 - Renaming file in same place to include Build Id -->
+  <Target Name="RenameReportAndCopyForMailling" DependsOnTargets="InvokeNUnitPerformanceProject" >
+	<Copy Condition="Exists('$(ReportDir)\$(ReportName)')"
+	SourceFiles="$(ReportDir)\$(ReportName)" 
+	DestinationFiles="$(ReportDir)\PerformanceReport$(BUILD-ID).html"></Copy>
+ 
+	<Delete Files="$(ReportDir)\$(ReportName)" Condition="Exists('$(ReportDir)\$(ReportName)')"></Delete>
+	<!-- Part 2 - Copying renamed file to workspace -->
+	<Copy Condition="Exists('$(ReportDir)\PerformanceReport$(BUILD-ID).html')"
+	SourceFiles="$(ReportDir)\PerformanceReport$(BUILD-ID).html" 
+	DestinationFiles="$(LocationWorkingDir)\PerformanceReport$(BUILD-ID).html"></Copy>
+  </Target>
+  
+  <!-- Running the NUnit Performance Test suite -->
+  <Target Name="InvokeNUnitPerformanceProject" DependsOnTargets="TakeReportBackup">
+	<exec 
+     command="&quot;$(PathNunitConsoleExe)&quot; /framework=4.0   /xml:$(NunitXMLPath) /noshadow  $(PathNunitProjectDLL)" ContinueOnError="false">
+	</exec>
+  </Target>
+  
+  <!-- Taking Report Backup and making required directories -->
+  <Target Name="TakeReportBackup" DependsOnTargets="CreatePerformanceDb">  
+	<MakeDir Directories="$(ReportArchive)" Condition="!Exists('$(ReportArchive)')" />  
+	
+    <Copy
+            SourceFiles="@(ReportSourceFiles)"
+            DestinationFolder="$(ReportArchive)"
+     />
+		
+	<Delete Files="@(ReportSourceFiles)"></Delete>
+  </Target>
+  
+  <!-- Creating a PerformanceDb according to latest schema -->
+  <Target Name="CreatePerformanceDb" DependsOnTargets="BuildSolution">
+	 <MSBuild Projects="$(PathPerformanceDbCreationBuildFile)" />
+  </Target>
+    
+    <!-- Building Solution -->
+	<Target Name="BuildSolution">
+        <MSBuild Projects="$(SolutionLocation)"  
+             Properties="Configuration=Release" Targets="Clean;Rebuild" />  
+    </Target>
+</Project>
